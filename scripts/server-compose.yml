@@ -2,8 +2,8 @@ services:
   server:
     image: ghcr.io/lncrawl/lightnovel-crawler:latest
     ports:
-      - "23457:8080"
-    command: -ll server -p 8080
+      - "23457:9999"
+    command: -ll server -p 9999
     environment:
       - LNCRAWL_DATA_PATH=/data
       - DATABASE_URL=${DB_URL}
