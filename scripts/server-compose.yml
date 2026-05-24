@@ -1,22 +1,4 @@
 services:
-  postgres:
-    image: postgres:alpine
-    environment:
-      POSTGRES_USER: pguser
-      POSTGRES_PASSWORD: pgpass
-      POSTGRES_DB: lncrawl
-    volumes:
-      - ./pgdata:/var/lib/postgresql/data
-    restart: unless-stopped
-    deploy:
-      resources:
-        limits:
-          cpus: "2.00"
-          memory: 3G
-        reservations:
-          cpus: "1.00"
-          memory: 2G
-
   server:
     image: ghcr.io/lncrawl/lightnovel-crawler:latest
     ports:
@@ -24,7 +6,7 @@ services:
     command: -ll server -p 8080
     environment:
       - LNCRAWL_DATA_PATH=/data
-      - DATABASE_URL=postgresql+psycopg://pguser:pgpass@postgres:5432/lncrawl
+      - DATABASE_URL=${DB_URL}
     volumes:
       - ./appdata:/data
     restart: unless-stopped
